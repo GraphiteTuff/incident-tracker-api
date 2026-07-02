@@ -6,15 +6,15 @@ Severity = Literal["SEV1", "SEV2", "SEV3"]
 Status = Literal["Open", "Investigating", "Monitoring", "Resolved"]
 
 class IncidentCreate(BaseModel):
-    title: str = Field(..., min_length=5, max_length=120)
-    service: str = Field(..., min_length=2, max_length=80)
+    title: str = Field(..., min_length=5, max_length=120, pattern=r"\S")
+    service: str = Field(..., min_length=2, max_length=80, pattern=r"\S")
     severity: Severity
     status: Status = "Open"
     summary: Optional[str] = Field(None, max_length=2000)
 
 class IncidentUpdate(BaseModel):
-    title: Optional[str] = Field(None, min_length=5, max_length=120)
-    service: Optional[str] = Field(None, min_length=2, max_length=80)
+    title: Optional[str] = Field(None, min_length=5, max_length=120, pattern=r"\S")
+    service: Optional[str] = Field(None, min_length=2, max_length=80, pattern=r"\S")
     severity: Optional[Severity] = None
     status: Optional[Status] = None
     summary: Optional[str] = Field(None, max_length=2000)
